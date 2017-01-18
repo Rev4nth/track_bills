@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.urls import reverse
 
-import pdb
 # Create your views here.
 
 from django.contrib.auth.models import User
