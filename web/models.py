@@ -15,7 +15,7 @@ class Account(models.Model):
 class Bill(models.Model):
     title = models.CharField(max_length=60)
     amount = models.IntegerField()
-    date = models.DateField()
+    date = models.DateField(blank=True, default='', null=True)
     account = models.ForeignKey(Account)
 
     def __str__(self):
