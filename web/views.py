@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.urls import reverse
 
 import pdb
 # Create your views here.
@@ -35,13 +36,13 @@ def accounts(request, account_id):
     accounts_list  = current_user.account_set.all()
     account_each = Account.objects.get(pk=account_id)
     if request.method == 'POST':
-        bill_form = BIllForm(request.POST)
+        bill_form = BillForm(request.POST)
         if bill_form.is_valid():
             bill_title = bill_form.cleaned_data['bill_title']
             bill_amount = bill_form.cleaned_data['bill_amount']
             bill_date =  bill_form.cleaned_data['bill_date']
-            account_each.bill_set.create(title=bill_title, amount=bill_amount, date='bill_date')
-            return HttpResponseRedirect('/account/(?P<account_id>[0-9]+)/')
+            account_each.bill_set.create(title=bill_title, amount=bill_amount, date=bill_date)
+            return HttpResponseRedirect(reverse('accounts', kwargs={'account_id' : account_id}))
     else:
         bill_form = BillForm()
     bills = account_each.bill_set.all()
