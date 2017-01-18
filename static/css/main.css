@@ -1,0 +1,11 @@
+body{
+  background-color: #f2f2f2;
+}
+
+#sideNav{
+  margin-top: 65px;
+}
+.account_container{
+  margin-left: 300px;
+  padding: 30px;
+}

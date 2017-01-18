@@ -1,0 +1,32 @@
+{% extends "web/base.html" %}
+
+{% block title %} Login {% endblock %}
+
+
+{% block content %}
+  {% if form.errors %}
+    <p>
+      Your username and password didn't match. Please login again.
+    </p>
+  {% endif %}
+  <div class="container">
+    <div class="">
+      <h4>Login</h4>
+      <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field col s12">
+            {{ form.username }}
+            <label for="{{ form.username.id_for_label }}">Username</label>
+          </div>
+          <div class="input-field col s12">
+            {{ form.password }}
+            <label for="{{ form.password.id_for_label }}">Password</label>
+          </div>
+          <button class="waves-effect waves-light btn" type="submit" value="login" name="action">login</button>
+          <input type="hidden" name="next" value="{{ next }}" />
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

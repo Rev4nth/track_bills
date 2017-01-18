@@ -1,0 +1,73 @@
+{% extends "web/base.html" %}
+
+{% block title %} Accounts {% endblock %}
+
+{% block content %}
+<nav>
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">TrackBills</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a class="dropdown-button" href="#!" data-activates="profile_dropdown">{{ user.username }}<i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
+      <ul id="profile_dropdown" class="dropdown-content">
+        <li>
+          <a href="{% url 'logout' %}">logout</a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+  <ul id="sideNav" class="side-nav fixed collection with-header">
+    <li class="collection-header">Accounts</li>
+    {% for account in accounts_list %}
+    <a class="collection-item {% if account.id == account_each.id %} active {% endif %}" href="{% url 'accounts' account.id %}"  >{{ account.name }}</a>
+    {% endfor %}
+  </ul>
+  <div class="account_container">
+    <h3>Account: {{ account_each.name }}</h3>
+
+    <div class="card col s8">
+      <form>
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field col s7">
+            {{ bill_form.bill_title }}
+            <label for="{{ bill_form.bill_title.id_for_label }}">Bill Title</label>
+          </div>
+          <div class="input-field col s7">
+            {{ bill_form.bill_amount }}
+            <label for="{{ bill_form.bill_amount.id_for_label }}">Bill Amount</label>
+          </div>
+          <div class="input-field col s7 ">
+            {{ bill_form.bill_date }}
+            <label class="active" for="{{ bill_form.bill_date.id_for_label }}" >Bill Date</label>
+          </div>
+        </div>
+
+        <button class="waves-effect waves-light btn" type="submit" value="login" name="action">Add a bill</button>
+      </form>
+    </div>
+
+    <div>
+      <table>
+          <thead>
+            <tr>
+                <th data-field="bill_title">Bill Title</th>
+                <th data-field="bill_amount">Bill Amount</th>
+                <th data-field="bill_date">Bill Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for bill in bills %}
+            <tr>
+              <td>{{ bill.title }}</td>
+              <td>{{ bill.amount }}</td>
+              <td>{{ bill.date }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    </div>
+
+  </div>
+{% endblock %}
