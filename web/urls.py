@@ -10,7 +10,8 @@ urlpatterns =  [
     url(r'^$', auth_views.login, kwargs={'template_name':'login.html','redirect_authenticated_user': True} ,name='login'),
     url(r'^logout/$', auth_views.logout, kwargs={'next_page': '/'},name='logout'),
     url(r'^account/$', views.accounts_list, name='accounts_list'),
-    url(r'^account/(?P<account_id>[0-9]+)$', views.accounts, name='accounts'),
+    url(r'^account/(?P<account_id>[0-9]+)/$', views.accounts, name='accounts'),
+    url(r'^account/(?P<account_id>[0-9]+)/bill/(?P<bill_id>[0-9]+)/edit/$', views.edit_bill, name='edit_bill'),
 ]
 
 
