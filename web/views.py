@@ -36,12 +36,13 @@ def accounts(request, account_id):
     accounts_list  = current_user.account_set.all()
     account_each = Account.objects.get(pk=account_id)
     if request.method == 'POST':
-        bill_form = BillForm(request.POST)
+        bill_form = BillForm(request.POST, request.FILES)
         if bill_form.is_valid():
             bill_title = bill_form.cleaned_data['bill_title']
             bill_amount = bill_form.cleaned_data['bill_amount']
             bill_date =  bill_form.cleaned_data['bill_date']
-            account_each.bill_set.create(title=bill_title, amount=bill_amount, date=bill_date)
+            bill_image =  bill_form.cleaned_data['bill_image']
+            account_each.bill_set.create(title=bill_title, amount=bill_amount, date=bill_date, image=bill_image)
             return HttpResponseRedirect(reverse('accounts', kwargs={'account_id' : account_id}))
     else:
         bill_form = BillForm()

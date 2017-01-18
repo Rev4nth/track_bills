@@ -17,6 +17,7 @@ class Bill(models.Model):
     amount = models.IntegerField()
     date = models.DateField(blank=True, default='', null=True)
     account = models.ForeignKey(Account)
+    image = models.ImageField(null=True)
 
     def __str__(self):
         return "Bill: {}".format(self.title)
