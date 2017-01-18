@@ -26,7 +26,7 @@
         {% endfor %}
       </ul>
       <div class="card section">
-        <form action="" method="post">
+        <form action="{% url 'accounts_list' %}" method="post">
           {% csrf_token %}
           <div class="row">
             <div class="input-field col s12">

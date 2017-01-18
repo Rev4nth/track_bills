@@ -26,7 +26,7 @@
     <h3>Account: {{ account_each.name }}</h3>
 
     <div class="card col s8">
-      <form action="" method="post">
+      <form action="{% url 'accounts' account_id=account_each.id %}" method="post"  enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
           <div class="input-field col s7">
@@ -41,6 +41,15 @@
             {{ bill_form.bill_date }}
             <label class="active" for="{{ bill_form.bill_date.id_for_label }}" >Bill Date</label>
           </div>
+          <div class="file-field input-field col s7">
+            <div class="btn">
+              <span>File</span>
+              {{ bill_form.bill_image }}
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
         </div>
 
         <button class="waves-effect waves-light btn" type="submit" value="login" name="action">Add a bill</button>
@@ -54,6 +63,7 @@
                 <th data-field="bill_title">Bill Title</th>
                 <th data-field="bill_amount">Bill Amount</th>
                 <th data-field="bill_date">Bill Date</th>
+                <th data-field="bill_image">Bill Image</th>
             </tr>
           </thead>
           <tbody>
@@ -62,6 +72,7 @@
               <td>{{ bill.title }}</td>
               <td>{{ bill.amount }}</td>
               <td>{{ bill.date }}</td>
+              <td><a href="{{bill.image.url}}">{{ bill.image.name }}</a></td>
             </tr>
             {% endfor %}
           </tbody>
