@@ -53,3 +53,32 @@ def accounts(request, account_id):
         'bill_form': bill_form,
     }
     return render(request, "web/accounts.html", template_values)
+
+@login_required()
+def edit_bill(request, bill_id,account_id):
+    account_each = Account.objects.get(pk=account_id)
+    if request.method == 'POST':
+        bill_form = BillForm(request.POST, request.FILES)
+        if bill_form.is_valid():
+            updated_bill = account_each.bill_set.get(pk=bill_id)
+            updated_bill.title = bill_form.cleaned_data['bill_title']
+            updated_bill.amount = bill_form.cleaned_data['bill_amount']
+            updated_bill.date =  bill_form.cleaned_data['bill_date']
+            updated_bill.image =  bill_form.cleaned_data['bill_image']
+            updated_bill.save()
+            return HttpResponseRedirect(reverse('accounts', kwargs={'account_id' : account_id}))
+
+    bill = Bill.objects.get(pk=bill_id)
+    bill_values = {
+        'bill_title' : bill.title,
+        'bill_amount': bill.amount,
+        'bill_date' : bill.date,
+        'bill_image': bill.image,
+    }
+    bill_edit_form = BillForm(initial=bill_values)
+    template_values = {
+        'bill_edit_form' : bill_edit_form,
+        'bill' : bill,
+        'account_each' :account_each,
+    }
+    return render(request,'web/edit_bill.html', template_values)

@@ -64,6 +64,7 @@
                 <th data-field="bill_amount">Bill Amount</th>
                 <th data-field="bill_date">Bill Date</th>
                 <th data-field="bill_image">Bill Image</th>
+                <th data-field="bill_edit">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -73,6 +74,7 @@
               <td>{{ bill.amount }}</td>
               <td>{{ bill.date }}</td>
               <td><a href="{{bill.image.url}}">{{ bill.image.name }}</a></td>
+              <td><a href="{% url 'edit_bill' account_id=account_each.id bill_id=bill.id %}">edit</a></td>
             </tr>
             {% endfor %}
           </tbody>
