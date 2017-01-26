@@ -4,14 +4,14 @@ from django.conf import settings
 from django.contrib.auth import views as auth_views
 
 from . import views
-
+from views import AccountListView, BillsListView, EditBillView
 
 urlpatterns =  [
     url(r'^$', auth_views.login, kwargs={'template_name':'login.html','redirect_authenticated_user': True} ,name='login'),
     url(r'^logout/$', auth_views.logout, kwargs={'next_page': '/'},name='logout'),
-    url(r'^account/$', views.accounts_list, name='accounts_list'),
-    url(r'^account/(?P<account_id>[0-9]+)/$', views.accounts, name='accounts'),
-    url(r'^account/(?P<account_id>[0-9]+)/bill/(?P<bill_id>[0-9]+)/edit/$', views.edit_bill, name='edit_bill'),
+    url(r'^account/$', AccountListView.as_view(), name='accounts_list'),
+    url(r'^account/(?P<account_id>[0-9]+)/$', BillsListView.as_view(), name='accounts'),
+    url(r'^account/(?P<account_id>[0-9]+)/bill/(?P<pk>[0-9]+)/edit/$', EditBillView.as_view(), name='edit_bill'),
 ]
 
 

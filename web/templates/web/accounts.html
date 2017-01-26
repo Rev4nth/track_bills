@@ -18,15 +18,15 @@
   </nav>
   <ul id="sideNav" class="side-nav fixed collection with-header">
     <li class="collection-header">Accounts</li>
-    {% for account in accounts_list %}
-    <a class="collection-item {% if account.id == account_each.id %} active {% endif %}" href="{% url 'accounts' account.id %}"  >{{ account.name }}</a>
+    {% for account_each in accounts_list %}
+    <a class="collection-item {% if account_each.id == account.id %} active {% endif %}" href="{% url 'accounts' account_each.id %}"  >{{ account_each.name }}</a>
     {% endfor %}
   </ul>
   <div class="account_container">
-    <h3>Account: {{ account_each.name }}</h3>
+    <h3>Account: {{ account.name }}</h3>
 
     <div class="card col s8">
-      <form action="{% url 'accounts' account_id=account_each.id %}" method="post"  enctype="multipart/form-data">
+      <form action="{% url 'accounts' account_id=account.id %}" method="post"  enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
           <div class="input-field col s7">
@@ -74,7 +74,7 @@
               <td>{{ bill.amount }}</td>
               <td>{{ bill.date }}</td>
               <td><a href="{{bill.image.url}}">{{ bill.image.name }}</a></td>
-              <td><a href="{% url 'edit_bill' account_id=account_each.id bill_id=bill.id %}">edit</a></td>
+              <td><a href="{% url 'edit_bill' account_id=account.id pk=bill.id %}">edit</a></td>
             </tr>
             {% endfor %}
           </tbody>
