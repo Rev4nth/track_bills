@@ -20,10 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=b=n7=3(kn^56+@aopjipbj6n^e%!bvw4*6-5rmr73nkt$*#mw'
+# SECRET_KEY = '=b=n7=3(kn^56+@aopjipbj6n^e%!bvw4*6-5rmr73nkt$*#mw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+
+DEBUG = os.environ.get('DEBUG', None)
+SECRET_KEY = os.environ.get('SECRET_KEY', None)
 
 ALLOWED_HOSTS = []
 
@@ -77,11 +80,10 @@ WSGI_APPLICATION = 'track_bills.wsgi.application'
 DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'track_bills',
-            'USER': 'Revanth',
-            'PASSWORD': '',
+            'NAME': os.environ.get('DB_NAME', None),
+            'USER': os.environ.get('DB_USER', None),
+            'PASSWORD': os.environ.get('DB_PASSWORD', None),
             'HOST': 'localhost',
-            'PORT': '',
     }
 }
 
